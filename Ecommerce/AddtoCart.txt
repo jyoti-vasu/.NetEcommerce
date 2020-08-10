@@ -1,0 +1,464 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddToCart.aspx.cs" Inherits="AddToCart" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 10px;
+      border-radius: 0;
+	  
+	  
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+      .footer {
+      background-color: #555;
+      color: white;
+      padding: 5px;
+	  margin-left:4px;
+	  margin-top:430px;
+	  width:1140px;
+      height:35px;
+      margin-bottom:8px;
+	  
+    }
+	.row.content {height: 330px;
+	margin-top:20px;
+	/*/margin-bottom:5px;*/
+	margin-left:2px;
+	width:1140px;
+	}
+	.sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 400px;
+    }    
+  
+
+  @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+      .auto-style2 {
+          width: 461px;
+          margin-top: 0px;
+          background-color: #FFCCFF;
+      }
+      .auto-style3 {
+          width: 690px;
+      }
+      .auto-style4 {
+          background-color: #FF9933;
+      }
+  </style>
+</head>
+<body>
+ <div class="container">
+<nav class="navbar navbar-inverse">
+  
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+    
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="download.jpg" alt="Los Angeles" style="width:100%;height:400px;">
+      </div>
+
+      <div class="item">
+        <img src="chicago.jpg" alt="Chicago" style="width:100%;height:400px;">
+      </div>
+    
+      <div class="item">
+        <img src="ny.jpg" alt="New york" style="width:100%;height:400px;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+  <div class="container">
+  
+    <div class="col-sm-12 text-left"> 
+ <div class="row content"> 
+      <form id="form1" runat="server">
+          <br />
+        <asp:Label ID="Label1" runat="server" Text="Online Shopping website"></asp:Label><br /><br />
+        <br />
+          <br />
+          <table border="1" class="auto-style3">
+              <tr>
+                  <td class="auto-style2">
+                      <asp:Label ID="Label2" runat="server"></asp:Label>
+                      &nbsp;&nbsp;&nbsp;
+                      <asp:LinkButton ID="LinkButton2" runat="server" OnClick="LinkButton2_Click">Login</asp:LinkButton>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Sign out</asp:LinkButton>
+&nbsp;&nbsp;&nbsp; You Have
+                      <asp:Label ID="Label3" runat="server" Text="0"></asp:Label>
+&nbsp;Products in Cart  &nbsp;&nbsp; 
+                      <asp:LinkButton ID="LinkButton3" runat="server">View Cart  </asp:LinkButton>
+&nbsp;&nbsp;&nbsp;<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/HomePage.aspx">Continue Shopping</asp:HyperLink>
+                  </td>
+              </tr>
+          </table>
+          <br />
+
+      
+          <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" ShowFooter="True">
+              <Columns>
+                  <asp:BoundField DataField="sno" HeaderText="S No" />
+                  <asp:BoundField DataField="productid" HeaderText="Product Id" />
+                  <asp:ImageField DataImageUrlField="productimage" HeaderText="Product Image">
+                  </asp:ImageField>
+                  <asp:BoundField DataField="productname" HeaderText="Product Name" />
+                  <asp:BoundField DataField="price" HeaderText="Price" />
+                  <asp:BoundField DataField="quantity" HeaderText="Quantity" />
+                  <asp:BoundField DataField="totalprice" HeaderText="Total Price">
+                  <HeaderStyle HorizontalAlign="Center" />
+                  </asp:BoundField>
+              </Columns>
+              <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
+              <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+              <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+              <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
+              <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+              <SortedAscendingCellStyle BackColor="#FFF1D4" />
+              <SortedAscendingHeaderStyle BackColor="#B95C30" />
+              <SortedDescendingCellStyle BackColor="#F1E5CE" />
+              <SortedDescendingHeaderStyle BackColor="#93451F" />
+          </asp:GridView>
+          <br />
+          <asp:LinkButton ID="LinkButton4" runat="server" OnClick="LinkButton4_Click">Clear Cart</asp:LinkButton>
+          <br />
+          <br />
+          Delivery  :<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox> <asp:Button ID="Button2" runat="server" Text="Check Availability" OnClick="Button2_Click" />
+&nbsp;<br /><br />
+          <%--<asp:Button ID="Button1" runat="server" CssClass="auto-style4" Height="26px" OnClick="Button1_Click" Text="Check Out" />--%>
+
+      
+          &nbsp; <asp:Label ID="Label4" runat="server"></asp:Label>
+
+      
+          </form>
+    </div>
+   </div>
+      <br />
+      </div>
+ </div>
+</div>
+</div>
+<div class="container">
+<div class="footer">
+</div>
+</div>
+</body>
+</html>
+Code
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Data;
+
+public partial class AddToCart : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["fName"] == null)
+        {
+            Response.Redirect("LoginPage.aspx");
+        }
+        else
+        {
+            Label2.Text = "Hello " + Session["fName"].ToString();
+            LinkButton1.Visible = true;
+            LinkButton2.Visible = false;
+
+        }
+        if (!IsPostBack)
+        {
+            DataTable dt = new DataTable();
+            DataRow dr;
+            dt.Columns.Add("sno");
+            dt.Columns.Add("productid");
+            dt.Columns.Add("productname");
+            dt.Columns.Add("quantity");
+            dt.Columns.Add("price");
+            dt.Columns.Add("totalprice");
+            dt.Columns.Add("productimage");
+
+
+            if (Request.QueryString["id"] != null)
+            {
+                if (Session["Buyitems"] == null)
+                {
+
+                    dr = dt.NewRow();
+                    String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+                    SqlConnection scon = new SqlConnection(mycon);
+                    String myquery = "select * from tbl_ProductHome where productid=" + Request.QueryString["id"];
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = myquery;
+                    cmd.Connection = scon;
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+                    dr["sno"] = 1;
+                    dr["productid"] = ds.Tables[0].Rows[0]["productid"].ToString();
+                    dr["productname"] = ds.Tables[0].Rows[0]["productname"].ToString();
+                    dr["productimage"] = ds.Tables[0].Rows[0]["productimage"].ToString();
+                    dr["quantity"] = Request.QueryString["quantity"];
+                    dr["price"] = ds.Tables[0].Rows[0]["price"].ToString();
+                    int price = Convert.ToInt16(ds.Tables[0].Rows[0]["price"].ToString());
+                    int quantity = Convert.ToInt16(Request.QueryString["quantity"].ToString());
+                    int totalprice = price * quantity;
+                    dr["totalprice"] = totalprice;
+                    savecartdetail(1, ds.Tables[0].Rows[0]["productid"].ToString(), ds.Tables[0].Rows[0]["productname"].ToString(), ds.Tables[0].Rows[0]["productimage"].ToString(), "1", ds.Tables[0].Rows[0]["price"].ToString(), totalprice.ToString());
+                    dt.Rows.Add(dr);
+                    GridView1.DataSource = dt;
+                    GridView1.DataBind();
+
+                    Session["buyitems"] = dt;
+                    GridView1.FooterRow.Cells[5].Text = "Total Amount";
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+                    Response.Redirect("AddToCart.aspx");
+
+                }
+                else
+                {
+
+                    dt = (DataTable)Session["buyitems"];
+                    int sr;
+                    sr = dt.Rows.Count;
+
+                    dr = dt.NewRow();
+                    String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+                    SqlConnection scon = new SqlConnection(mycon);
+                    String myquery = "select * from tbl_ProductHome where productid=" + Request.QueryString["id"];
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = myquery;
+                    cmd.Connection = scon;
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+                    dr["sno"] = sr + 1;
+                    dr["productid"] = ds.Tables[0].Rows[0]["productid"].ToString();
+                    dr["productname"] = ds.Tables[0].Rows[0]["productname"].ToString();
+                    dr["productimage"] = ds.Tables[0].Rows[0]["productimage"].ToString();
+                    dr["quantity"] = Request.QueryString["quantity"];
+                    dr["price"] = ds.Tables[0].Rows[0]["price"].ToString();
+                    int price = Convert.ToInt16(ds.Tables[0].Rows[0]["price"].ToString());
+                    int quantity = Convert.ToInt16(Request.QueryString["quantity"].ToString());
+                    int totalprice = price * quantity;
+                    dr["totalprice"] = totalprice;
+                    savecartdetail(sr + 1, ds.Tables[0].Rows[0]["productid"].ToString(), ds.Tables[0].Rows[0]["productname"].ToString(), ds.Tables[0].Rows[0]["productimage"].ToString(), "1", ds.Tables[0].Rows[0]["price"].ToString(), totalprice.ToString());
+                    dt.Rows.Add(dr);
+                    GridView1.DataSource = dt;
+                    GridView1.DataBind();
+
+                    Session["buyitems"] = dt;
+                    GridView1.FooterRow.Cells[5].Text = "Total Amount";
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+                    Response.Redirect("AddToCart.aspx");
+
+                }
+            }
+            else
+            {
+                dt = (DataTable)Session["buyitems"];
+                GridView1.DataSource = dt;
+                GridView1.DataBind();
+                if (GridView1.Rows.Count > 0)
+                {
+                    GridView1.FooterRow.Cells[5].Text = "Total Amount";
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+
+                }
+
+
+            }
+            Label3.Text = GridView1.Rows.Count.ToString();
+
+        }
+    }
+    public int grandtotal()
+    {
+        DataTable dt = new DataTable();
+        dt = (DataTable)Session["buyitems"];
+        int nrow = dt.Rows.Count;
+        int i = 0;
+        int gtotal = 0;
+        while (i < nrow)
+        {
+            gtotal = gtotal + Convert.ToInt32(dt.Rows[i]["totalprice"].ToString());
+
+            i = i + 1;
+        }
+        return gtotal;
+    }
+
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        // Response.Redirect("PlaceOrder.aspx");
+        //bool buttonClicked = true;
+        //if (buttonClicked == true)
+        //{
+        //    Response.Redirect("PlaceOrder.aspx");
+
+        //    //  MessageBox.Show(“The button was clicked”);
+
+        //}
+        //else
+        //{
+
+        //    //   MessageBox.Show("buttonClicked has a value of false");
+        //    Response.Write("Please Enter write pin");
+
+        //}
+
+    }
+
+    protected void LinkButton2_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("LoginPage.aspx");
+    }
+
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+        Session.Abandon();
+        Response.Redirect("Homepage.aspx");
+    }
+
+    protected void LinkButton4_Click(object sender, EventArgs e)
+    {
+        Session["buyitems"] = null;
+        clearsavedcart();
+    }
+    private void clearsavedcart()
+    {
+        String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+
+        String updatedata = "delete from tbl_SavedCart where fName='" + Session["fName"].ToString() + "'";
+        SqlConnection con = new SqlConnection(mycon);
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = updatedata;
+        cmd.Connection = con;
+        cmd.ExecuteNonQuery();
+        Response.Redirect("HomePage.aspx");
+    }
+    private void savecartdetail(int sno, String productid, String Productname, String productimage, String quantity, String price, String totalprice)
+    {
+        String query = "insert into tbl_SavedCart(sno,productid,productname,productimage,quantity,price,totalprice,fName) values(" + sno + ",'" + productid + "','" + Productname + "','" + productimage + "','" + quantity + "','" + price + "','" + totalprice + "','" + Session["fName"].ToString() + "')";
+        String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+        SqlConnection con = new SqlConnection(mycon);
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = query;
+        cmd.Connection = con;
+        cmd.ExecuteNonQuery();
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        String city;
+        String pincode;
+        String deliverydays;
+        String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+        String myquery = "Select * from tbl_pincode where pincode=" + TextBox1.Text;
+        SqlConnection con = new SqlConnection(mycon);
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = myquery;
+        cmd.Connection = con;
+        SqlDataAdapter da = new SqlDataAdapter();
+        da.SelectCommand = cmd;
+        DataSet ds = new DataSet();
+        da.Fill(ds);
+
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            string page = "PlaceOrder.aspx";
+            city = ds.Tables[0].Rows[0]["city"].ToString();
+            deliverydays = ds.Tables[0].Rows[0]["deliverydays"].ToString();
+            pincode = ds.Tables[0].Rows[0]["pincode"].ToString();
+            
+            Label4.Text = "Item is available at " + TextBox1.Text + "( " + city + " )" + " .Standard Delivery in " + deliverydays + " +Rs 49 Cash on Delivery also available for this location";
+
+            Label4.ForeColor = System.Drawing.Color.Green;
+
+            
+            Response.Write("<script language='javascript'>window.alert('" + Label4.Text + "');window.location='PlaceOrder.aspx';</script>");
+
+
+
+        }
+
+
+        else
+        {
+            Label4.Text = "Item not available at this location, please try another pincode";
+            Label4.ForeColor = System.Drawing.Color.Red;
+
+        }
+     
+        con.Close();
+        
+    }
+  
+}

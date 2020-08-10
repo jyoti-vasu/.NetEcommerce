@@ -1,0 +1,338 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddProducts.aspx.cs" Inherits="AddProducts" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 10px;
+      border-radius: 0;
+	  
+	  
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+      .footer {
+      background-color: #555;
+      color: white;
+      padding: 5px;
+	  margin-left:4px;
+	  margin-top:20px;
+	  width:1140px;
+      height:35px;
+      margin-bottom:8px;
+	  
+    }
+	.row.content {height: 300px;
+	margin-top:10px;
+	margin-bottom:10px;
+	margin-left:2px;
+	width:1140px;
+	}
+	
+  
+
+  @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  .auto-style1 {
+            width: 467px;
+          height: 201px;
+          background-color: #FF9999;
+      }
+        .auto-style2 {
+            width: 234px;
+        }
+        .auto-style3 {
+            width: 234px;
+            height: 23px;
+        }
+        .auto-style4 {
+            height: 23px;
+            width: 217px;
+        }
+        .auto-style6 {
+            width: 217px;
+        }
+      </style>
+</head>
+<body>
+    <div class="container">
+<nav class="navbar navbar-inverse">
+  
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+    
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="download.jpg" alt="Los Angeles" style="width:100%;height:400px;">
+      </div>
+
+      <div class="item">
+        <img src="chicago.jpg" alt="Chicago" style="width:100%;height:400px;">
+      </div>
+    
+      <div class="item">
+        <img src="ny.jpg" alt="New york" style="width:100%;height:400px;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+ <div class="container">
+  
+    <div class="col-sm-12 text-left"> 
+ <div class="row content">
+      <form id="form1" runat="server">
+          <br />
+          <br />
+          <asp:Label ID="Label1" runat="server" Text="WelCome Online Shopping"></asp:Label>
+          <asp:Label ID="Label2" runat="server" ForeColor="Red" Text="Add Products "></asp:Label>
+        <br />
+        <br />
+        <table border="1" class="auto-style1">
+            <tr>
+                <td class="auto-style2">Product Id</td>
+                <td class="auto-style6">
+                    <asp:Label ID="Label3" runat="server"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style2">Product Name</td>
+                <td class="auto-style6">
+                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style2">Price</td>
+                <td class="auto-style6">
+                    <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style2">key of search</td>
+                <td class="auto-style6">
+                    <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style2">category</td>
+                <td class="auto-style6">
+                    <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style3">Upload Product Image</td>
+                <td class="auto-style4">
+                    <asp:FileUpload ID="FileUpload1" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style2">
+                    <asp:Label ID="Label4" runat="server"></asp:Label>
+                </td>
+                <td class="auto-style6">
+                &nbsp;&nbsp;
+                    <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Button" />
+                </td>
+            </tr>
+        </table>
+          <br />
+        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/HomePage.aspx">View All Products</asp:HyperLink>
+     
+    
+    
+          <br />
+          <br />
+          
+          </form>
+    </div>
+   </div>
+      </div>
+ </div>
+</div>
+</div>
+<div class="container">
+<div class="footer">
+</div>
+</div>
+     
+</body>
+</html>
+
+Code
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+
+public partial class AddProducts : System.Web.UI.Page
+
+{
+    static String imagelink;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            getproductid();
+        }
+    }
+
+    
+
+
+
+
+
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        if (uploadimage() == true)
+        {
+            String query = "insert into tbl_ProductHome(productid,productname,price,keyofsearch,category,productimage) values(" + Label3.Text + ",'" + TextBox1.Text + "','" + TextBox2.Text + "','" + TextBox3.Text + "','" + TextBox4.Text + "','" + imagelink + "')";
+            String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+            SqlConnection con = new SqlConnection(mycon);
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = query;
+            cmd.Connection = con;
+            cmd.ExecuteNonQuery();
+            Label4.Text = "Product Has Been Successfully Saved";
+            getproductid();
+            TextBox1.Text = "";
+            TextBox2.Text = "";
+            TextBox3.Text = "";
+            TextBox4.Text = "";
+
+        }
+    }
+    private Boolean uploadimage()
+    {
+        Boolean imagesaved = false;
+        if (FileUpload1.HasFile == true)
+        {
+
+            String contenttype = FileUpload1.PostedFile.ContentType;
+
+            if (contenttype == "image/jpeg")
+            {
+
+                FileUpload1.SaveAs(Server.MapPath("~/images/") + Label3.Text + ".jpg");
+                imagelink = "images/" + Label3.Text + ".jpg";
+                imagesaved = true;
+            }
+            else
+            {
+                Label4.Text = "Kindly Upload JPEG Format Image Only";
+            }
+
+        }
+
+        else
+        {
+            Label4.Text = "You have not selected any file - Browse and Select File First";
+        }
+
+        return imagesaved;
+
+    }
+    public void getproductid()
+    {
+        String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+        SqlConnection scon = new SqlConnection(mycon);
+        String myquery = "select productid from tbl_ProductHome";
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = myquery;
+        cmd.Connection = scon;
+        SqlDataAdapter da = new SqlDataAdapter();
+        da.SelectCommand = cmd;
+        DataSet ds = new DataSet();
+        da.Fill(ds);
+        scon.Close();
+        if (ds.Tables[0].Rows.Count < 1)
+        {
+            Label3.Text = "101";
+
+        }
+        else
+        {
+
+
+
+            String mycon1 = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+            SqlConnection scon1 = new SqlConnection(mycon1);
+            String myquery1 = "select max(productid) from tbl_ProductHome";
+            SqlCommand cmd1 = new SqlCommand();
+            cmd1.CommandText = myquery1;
+            cmd1.Connection = scon1;
+            SqlDataAdapter da1 = new SqlDataAdapter();
+            da1.SelectCommand = cmd1;
+            DataSet ds1 = new DataSet();
+            da1.Fill(ds1);
+            Label3.Text = ds1.Tables[0].Rows[0][0].ToString();
+            int a;
+            a = Convert.ToInt16(Label3.Text);
+            a = a + 1;
+            Label3.Text = a.ToString();
+            scon1.Close();
+        }
+
+    }
+
+
+}

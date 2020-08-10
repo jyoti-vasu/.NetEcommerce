@@ -1,0 +1,317 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LoginPage.aspx.cs" Inherits="SavedCartLogin1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 10px;
+      border-radius: 0;
+	  
+	  
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+      .footer {
+     background-color: #555;
+      color: white;
+      padding: 5px;
+	  margin-left:4px;
+	 /*/ margin-top:5px;*/
+	  width:1140px;
+      height:35px;
+      margin-bottom:8px;
+	  
+    }
+	.row.content {height: 330px;
+	margin-top:20px;
+	/*/margin-bottom:5px;*/
+	margin-left:2px;
+	width:1140px;
+	}
+	.sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 400px;
+    }    
+  
+
+  @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+      .auto-style2 {
+          width: 461px;
+          margin-top: 0px;
+          background-color: #FFCCFF;
+      }
+      .auto-style3 {
+          width: 151px;
+      }
+      .auto-style4 {
+          width: 159px;
+      }
+      .auto-style5 {
+          width: 159px;
+          height: 91px;
+      }
+      .auto-style6 {
+          width: 151px;
+          height: 39px;
+      }
+      .auto-style7 {
+          width: 159px;
+          height: 39px;
+          text-align: center;
+      }
+      .auto-style8 {
+          width: 151px;
+          text-align: center;
+      }
+      .auto-style9 {
+          width: 159px;
+          text-align: center;
+      }
+      .auto-style10 {
+          background-color: #CC99FF;
+      }
+  </style>
+</head>
+<body>
+ <div class="container">
+<nav class="navbar navbar-inverse">
+  
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+    
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="download.jpg" alt="Los Angeles" style="width:100%;height:400px;">
+      </div>
+
+      <div class="item">
+        <img src="chicago.jpg" alt="Chicago" style="width:100%;height:400px;">
+      </div>
+    
+      <div class="item">
+        <img src="ny.jpg" alt="New york" style="width:100%;height:400px;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+ <div class="container">
+  
+    <div class="col-sm-12 text-left"> 
+ <div class="row content"> 
+      <form id="form1" runat="server">
+          <br />
+        <asp:Label ID="Label1" runat="server" Text="Online Shopping website"></asp:Label><br /><br />
+        <asp:Label ID="Label2" runat="server" Text="Logged into shopping website" Font-Size="X-Large" ForeColor="Red"></asp:Label><br />
+
+        <br />
+          <table class="auto-style2" border="1" align="center">
+            <tr>
+                <td class="auto-style9"><span class="auto-style5"><strong>U</strong></span><strong><span class="auto-style5">ser name</span></strong></td>
+                <td class="auto-style3"><br />
+                    &nbsp;&nbsp;<asp:TextBox ID="TextBox1" runat="server" Height="26px" Width="137px"></asp:TextBox>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style7"><strong>Password</strong></td>
+                <td class="auto-style6"><br />
+                   &nbsp;&nbsp;<asp:TextBox ID="TextBox2" runat="server" Height="26px" Width="140px" TextMode="Password"></asp:TextBox>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style4">&nbsp;</td>
+                <td class="auto-style8"><br />
+                    <asp:Button ID="Button1" runat="server" Height="38px" Text="Login" Width="72px" CssClass="auto-style10" OnClick="Button1_Click" />
+                </td>
+            </tr>
+        </table>
+        <br />
+          <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
+          </form>
+    </div>
+   </div>
+      </div>
+ </div>
+</div>
+</div>
+<div class="container">
+<div class="footer">
+</div>
+</div>
+</body>
+</html>
+
+Code
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+
+public partial class SavedCartLogin1 : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+        SqlConnection scon = new SqlConnection(mycon);
+        String myquery = "select * from Tbl_Register where fName='" + TextBox1.Text + "'";
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = myquery;
+        cmd.Connection = scon;
+        SqlDataAdapter da = new SqlDataAdapter();
+        da.SelectCommand = cmd;
+        DataSet ds = new DataSet();
+        da.Fill(ds);
+        String uname;
+        String pass;
+        
+      
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            uname = ds.Tables[0].Rows[0]["fName"].ToString();
+            pass = ds.Tables[0].Rows[0]["password"].ToString();
+         
+
+            scon.Close();
+     
+
+            if (uname == TextBox1.Text && pass == TextBox2.Text)
+                {
+                    Session["fName"] = uname;
+                    Session["buyitems"] = null;
+                    fillsavedCart();
+                
+                    Response.Redirect("HomePage.aspx");
+                }
+
+            
+            else
+            {
+                Label3.Text = "Invalid Username or Password - Relogin with Correct Username Password";
+            }
+            }
+            else
+            {
+                Label3.Text = "Invalid Username or Password - Relogin with Correct Username Password";
+            }
+        }
+    
+    private void fillsavedCart()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr;
+        dt.Columns.Add("sno");
+        dt.Columns.Add("productid");
+        dt.Columns.Add("productname");
+        dt.Columns.Add("quantity");
+        dt.Columns.Add("price");
+        dt.Columns.Add("totalprice");
+        dt.Columns.Add("productimage");
+
+        String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+        SqlConnection scon = new SqlConnection(mycon);
+        String myquery = "select * from tbl_SavedCart where fName='" + Session["fName"].ToString() + "'";
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = myquery;
+        cmd.Connection = scon;
+        SqlDataAdapter da = new SqlDataAdapter();
+        da.SelectCommand = cmd;
+        DataSet ds = new DataSet();
+        da.Fill(ds);
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            int i = 0;
+            int counter = ds.Tables[0].Rows.Count;
+            while (i < counter)
+            {
+                dr = dt.NewRow();
+                dr["sno"] = i + 1;
+                dr["productid"] = ds.Tables[0].Rows[i]["productid"].ToString();
+                dr["productname"] = ds.Tables[0].Rows[i]["productname"].ToString();
+                dr["productimage"] = ds.Tables[0].Rows[i]["productimage"].ToString();
+                dr["quantity"] = "1";
+                dr["price"] = ds.Tables[0].Rows[i]["price"].ToString();
+                int price1 = Convert.ToInt16(ds.Tables[0].Rows[i]["price"].ToString());
+                int quantity1 = Convert.ToInt16(ds.Tables[0].Rows[i]["quantity"].ToString());
+                int totalprice1 = price1 * quantity1;
+                dr["totalprice"] = totalprice1;
+                dt.Rows.Add(dr);
+                i = i + 1;
+            }
+
+        }
+        else
+        {
+            Session["buyitems"] = null;
+        }
+        Session["buyitems"] = dt;
+    }
+}

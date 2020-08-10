@@ -1,0 +1,308 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PlaceOrder.aspx.cs" Inherits="PlaceOrder" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <style type="text/css">
+        .auto-style1 {
+            width: 50%;
+            height: 128px;
+        }
+        .auto-style2 {
+            height: 23px;
+            width: 324px;
+        }
+        .auto-style4 {
+            height: 23px;
+            width: 426px;
+        }
+        .auto-style5 {
+            height: 9px;
+            width: 324px;
+        }
+        .auto-style6 {
+            height: 9px;
+            width: 426px;
+        }
+        .auto-style7 {
+            width: 54%;
+            height: 137px;
+            background-color: #FFCCFF;
+        }
+        .auto-style8 {
+            width: 284px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+    <div>
+    
+    &nbsp;
+        <br />
+        <asp:Label ID="Label1" runat="server" Font-Bold="True" Text="Online Shopping"></asp:Label>
+        <br />
+        <br />
+        <asp:Label ID="Label2" runat="server" Text="Check Out in shopping Cart"></asp:Label>
+        <br />
+        <br />
+        <table class="auto-style1">
+            <tr>
+                <td class="auto-style5">Order Id</td>
+                <td class="auto-style6">
+                    <asp:Label ID="Label3" runat="server"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style2">Order Date</td>
+                <td class="auto-style4">
+                    <asp:Label ID="Label4" runat="server"></asp:Label>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Height="205px" ShowFooter="True" Width="554px">
+            <Columns>
+                <asp:BoundField DataField="sno" HeaderText="SNO" />
+                <asp:BoundField DataField="productid" HeaderText="Product Id" />
+                <asp:BoundField DataField="productname" HeaderText="Product Name" />
+                <asp:ImageField DataImageUrlField="productimage" HeaderText="ProductImage">
+                </asp:ImageField>
+                <asp:BoundField DataField="price" HeaderText="Price" />
+                <asp:BoundField DataField="quantity" HeaderText="Quantity" />
+                <asp:BoundField DataField="totalprice" HeaderText="Total Price" />
+            </Columns>
+            <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
+            <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+            <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+            <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
+            <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+            <SortedAscendingCellStyle BackColor="#FFF1D4" />
+            <SortedAscendingHeaderStyle BackColor="#B95C30" />
+            <SortedDescendingCellStyle BackColor="#F1E5CE" />
+            <SortedDescendingHeaderStyle BackColor="#93451F" />
+        </asp:GridView>
+        <br />
+        <br />
+        <table class="auto-style7">
+            <tr>
+                <td class="auto-style8">Type Your Address</td>
+                <td>
+                    <asp:TextBox ID="TextBox1" runat="server" Height="35px" TextMode="MultiLine" Width="186px"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style8">Mobile Number</td>
+                <td>
+                    <asp:TextBox ID="TextBox2" runat="server" Height="25px" Width="169px"></asp:TextBox>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <asp:Button ID="Button1" runat="server" BackColor="#FF5050" Text="Placr Order" OnClick="Button1_Click" />
+    
+    </div>
+    </div>
+    </form>
+</body>
+</html>
+Code
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+
+public partial class PlaceOrder : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            DataTable dt = new DataTable();
+            DataRow dr;
+            dt.Columns.Add("sno");
+            dt.Columns.Add("productid");
+            dt.Columns.Add("productname");
+            dt.Columns.Add("quantity");
+            dt.Columns.Add("price");
+            dt.Columns.Add("totalprice");
+            dt.Columns.Add("productimage");
+
+
+            if (Request.QueryString["id"] != null)
+            {
+                if (Session["Buyitems"] == null)
+                {
+
+                    dr = dt.NewRow();
+                    String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+                    SqlConnection scon = new SqlConnection(mycon);
+                    String myquery = "select * from tbl_ProductHome where productid=" + Request.QueryString["id"];
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = myquery;
+                    cmd.Connection = scon;
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+                    dr["sno"] = 1;
+                    dr["productid"] = ds.Tables[0].Rows[0]["productid"].ToString();
+                    dr["productname"] = ds.Tables[0].Rows[0]["productname"].ToString();
+                    dr["productimage"] = ds.Tables[0].Rows[0]["productimage"].ToString();
+                    dr["quantity"] = Request.QueryString["quantity"];
+                    dr["price"] = ds.Tables[0].Rows[0]["price"].ToString();
+                    int price = Convert.ToInt16(ds.Tables[0].Rows[0]["price"].ToString());
+                    int quantity = Convert.ToInt16(Request.QueryString["quantity"].ToString());
+                    int totalprice = price * quantity;
+                    dr["totalprice"] = totalprice;
+
+                    dt.Rows.Add(dr);
+                    GridView1.DataSource = dt;
+                    GridView1.DataBind();
+
+                    Session["buyitems"] = dt;
+                    GridView1.FooterRow.Cells[5].Text = "Total Amount";
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+                    Response.Redirect("AddToCart.aspx");
+
+                }
+                else
+                {
+
+                    dt = (DataTable)Session["buyitems"];
+                    int sr;
+                    sr = dt.Rows.Count;
+
+                    dr = dt.NewRow();
+                    String mycon = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+                    SqlConnection scon = new SqlConnection(mycon);
+                    String myquery = "select * from tbl_ProductHome where productid=" + Request.QueryString["id"];
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = myquery;
+                    cmd.Connection = scon;
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+                    dr["sno"] = sr + 1;
+                    dr["productid"] = ds.Tables[0].Rows[0]["productid"].ToString();
+                    dr["productname"] = ds.Tables[0].Rows[0]["productname"].ToString();
+                    dr["productimage"] = ds.Tables[0].Rows[0]["productimage"].ToString();
+                    dr["quantity"] = Request.QueryString["quantity"];
+                    dr["price"] = ds.Tables[0].Rows[0]["price"].ToString();
+                    int price = Convert.ToInt16(ds.Tables[0].Rows[0]["price"].ToString());
+                    int quantity = Convert.ToInt16(Request.QueryString["quantity"].ToString());
+                    int totalprice = price * quantity;
+                    dr["totalprice"] = totalprice;
+                    dt.Rows.Add(dr);
+                    GridView1.DataSource = dt;
+                    GridView1.DataBind();
+
+                    Session["buyitems"] = dt;
+                    GridView1.FooterRow.Cells[5].Text = "Total Amount";
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+                    Response.Redirect("AddToCart.aspx");
+
+                }
+            }
+            else
+            {
+                dt = (DataTable)Session["buyitems"];
+                GridView1.DataSource = dt;
+                GridView1.DataBind();
+                if (GridView1.Rows.Count > 0)
+                {
+                    GridView1.FooterRow.Cells[5].Text = "Total Amount";
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+
+                }
+
+
+            }
+            // Label2.Text = GridView1.Rows.Count.ToString();
+
+        }
+        Label4.Text = DateTime.Now.ToShortDateString();
+        findorderid();
+
+    }
+    public int grandtotal()
+    {
+        DataTable dt = new DataTable();
+        dt = (DataTable)Session["buyitems"];
+        int nrow = dt.Rows.Count;
+        int i = 0;
+        int gtotal = 0;
+        while (i < nrow)
+        {
+            gtotal = gtotal + Convert.ToInt32(dt.Rows[i]["totalprice"].ToString());
+
+            i = i + 1;
+        }
+        return gtotal;
+    }
+    public void findorderid()
+    {
+        String pass = "abcdefghijklmnopqrstuvwxyz123456789";
+        Random r = new Random();
+        char[] mypass = new char[5];
+        for (int i = 0; i < 5; i++)
+        {
+            mypass[i] = pass[(int)(35 * r.NextDouble())];
+
+        }
+        String orderid;
+        orderid = "Order" + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + new string(mypass);
+
+        Label3.Text = orderid;
+
+
+    }
+
+    public void saveaddress()
+    {
+        String updatepass = "insert into orderaddress(orderid,address,mobilenumber) values('" + Label3.Text + "','" + TextBox1.Text + "','" + TextBox2.Text + "')";
+        String mycon1 = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+        SqlConnection s = new SqlConnection(mycon1);
+        s.Open();
+        SqlCommand cmd1 = new SqlCommand();
+        cmd1.CommandText = updatepass;
+        cmd1.Connection = s;
+        cmd1.ExecuteNonQuery();
+        s.Close();
+    
+
+}
+
+protected void Button1_Click(object sender, EventArgs e)
+    {
+
+        DataTable dt;
+        dt = (DataTable)Session["buyitems"];
+
+
+
+        for (int i = 0; i <= dt.Rows.Count - 1; i++)
+        {
+            String updatepass = "insert into orderdetails(orderid,srno,productid,productname,price,quantity,dateoforder) values('" + Label3.Text + "'," + dt.Rows[i]["sno"] + "," + dt.Rows[i]["productid"] + ",'" + dt.Rows[i]["productname"] + "'," + dt.Rows[i]["price"] + "," + dt.Rows[i]["quantity"] + ",'" + Label4.Text + "')";
+            String mycon1 = "Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True";
+            SqlConnection s = new SqlConnection(mycon1);
+            s.Open();
+            SqlCommand cmd1 = new SqlCommand();
+            cmd1.CommandText = updatepass;
+            cmd1.Connection = s;
+            cmd1.ExecuteNonQuery();
+            s.Close();
+
+        }
+        saveaddress();
+        Response.Redirect("PlacedSuccess2.aspx?orderid=" + Label3.Text);
+    }
+}

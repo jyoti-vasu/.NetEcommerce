@@ -1,0 +1,116 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SortProducts.aspx.cs" Inherits="SortProducts" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <style type="text/css">
+        .auto-style1 {
+            width: 64%;
+            background-color: #FFCC99;
+        }
+        .auto-style2 {
+            width: 219px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+     <div>
+    
+    &nbsp;<br />
+        <asp:Label ID="Label1" runat="server" Text="Online Shopping"></asp:Label>
+        <br />
+        <br />
+        <asp:Label ID="Label2" runat="server" ForeColor="#FF3300" Text="Sort Product detaails by price"></asp:Label>
+        <br />
+        <br />
+        <table border="1" class="auto-style1">
+            <tr>
+                <td class="auto-style2">Sort By</td>
+                <td>
+                &nbsp;
+                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                &nbsp;
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox1" ErrorMessage="enter text to sort" ForeColor="#FF0066"></asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style2">
+                    <br />
+                </td>
+                <td>
+&nbsp;
+                    &nbsp;&nbsp;
+                    
+                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text=" Low To High" />
+&nbsp;
+                    <asp:Button ID="Button2" runat="server"  Text="High To Low" OnClick="Button2_Click1" style="height: 26px" />
+                    
+                </td>
+            </tr>
+        </table>
+
+         <br />
+         <br />
+         <br />
+         <br />
+         <br />
+         <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False">
+             <Columns>
+                 <asp:BoundField DataField="productid" HeaderText="ProductId" />
+                 <asp:BoundField DataField="productname" HeaderText="ProductName" />
+                 <asp:BoundField DataField="price" HeaderText="Price" />
+                 <asp:ImageField DataImageUrlField="productimage" HeaderText="ProductImage">
+                 </asp:ImageField>
+             </Columns>
+         </asp:GridView>
+         <br />
+         <br />
+
+         </div>
+    </form>
+</body>
+</html>
+Code
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+
+public partial class SortProducts : System.Web.UI.Page
+{
+    SqlConnection con = new SqlConnection("Data Source=ADMIN-PC;Initial Catalog=shopping;Integrated Security=True");
+    
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        SqlDataAdapter da = new SqlDataAdapter("select productid,productname,price,productimage from tbl_ProductHome order by '" + TextBox1.Text+"' desc", con);
+        DataSet ds = new DataSet();
+        //DataTable ds = new DataTable();
+        da.Fill(ds);
+        GridView2.DataSource = ds;
+        GridView2.DataBind();
+    }
+
+    
+
+    protected void Button2_Click1(object sender, EventArgs e)
+    {
+        SqlDataAdapter da = new SqlDataAdapter("select *from tbl_ProductHome order by '" + TextBox1.Text + "' asc", con);
+        DataSet ds = new DataSet();
+        //DataTable ds = new DataTable();
+        da.Fill(ds);
+        GridView2.DataSource = ds;
+        GridView2.DataBind();
+    }
+}
